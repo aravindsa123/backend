@@ -8,9 +8,9 @@ const subcateschema=new sa(
     {
         id:String,
         pname:String,
-        sp:String,
+        specialization:String,
         status:String
     }
 );
-var subcatemodel=mongoose.model("subcat",subcateschema)
+var subcatemodel=mongoose.model("dept",subcateschema)
 module.exports=subcatemodel;
