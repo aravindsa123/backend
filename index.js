@@ -10,6 +10,7 @@ const subcatemodel = require("./model/Departmentdetails");
 const data2model = require("./model/Login");
 const data3model = require("./model/UserLogin");
 const data4model = require("./model/UserReg");
+const appmodel = require("./model/Appointmentdetails");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -41,6 +42,13 @@ app.get("/view/:id", async (request, response) => {
   console.log(data);
   response.send(data);
 });
+app.get("/book/:id", async (request, response) => {
+  const { id } = request.params;
+  var data = await appmodel.findById(id);
+  console.log(data);
+  response.send(data);
+});
+
 app.get("/display", async (request, response) => {
   var data = await catemodel.find();
   console.log(data);
@@ -98,6 +106,18 @@ app.post("/new", upload.single("image1"), async (request, response) => {
   } catch (error) {
     response.status(500).json({ error: "Internal Server Error" });
   }
+});
+
+
+app.post("/booking",  async (request, response) => {
+  console.log(request.body)
+   new appmodel(request.body).save();
+   response.send("Record Saved")
+})
+
+app.get('/booking', async (request, response) => {
+  var data = await appmodel.find();
+  response.send(data)
 });
 
 app.post("/Loginsearch", async (request, response) => {
